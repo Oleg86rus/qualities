@@ -12,15 +12,15 @@ axios.interceptors.response.use(
       error.response.status < 500
     if (!expectedErrors) {
       logger.log(error)
-      toast.error('Somthing was wrong. Try it later')
+      toast.error('Something was wrong. Try it later')
     }
     return Promise.reject(error)
   }
 )
-const httpServise = {
+const httpService = {
   get:axios.get,
   post:axios.post,
   put:axios.put,
   delete:axios.delete
 }
-export default httpServise
+export default httpService

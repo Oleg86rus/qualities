@@ -2,11 +2,13 @@ import React, { useEffect, useState } from 'react'
 import { useHistory } from 'react-router-dom'
 import QualitiesTable from '../components/ui/qualitiesTable'
 import axios from 'axios'
+import qualityService from '../servises/quality.service'
 
 const QualitiesListPage = () => {
   const [qualities, setQualities] = useState([])
   const history = useHistory()
   useEffect(async () => {
+      qualityService.fetchAll().then((data) => setQualities(data.content))
       const {data} = await axios.get('http://localhost:4000/api/v1/quality')
         setQualities(data.content)
     },
