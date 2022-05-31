@@ -1,26 +1,25 @@
 import React, { useEffect, useState } from 'react'
-import { useParams } from 'react-router-dom'
-import qualityService from '../servises/quality.service'
-import { toast } from 'react-toastify'
+import { useHistory, useParams } from 'react-router-dom'
 import QualityForm from '../components/ui/qualityForm'
 import { useQualities } from '../hooks/useQualities'
 
 
 const EditQualityPage = () => {
+  const history = useHistory()
   const id = useParams().id
   const {getQuality, updateQuality} = useQualities()
   const quality = getQuality(id)
   
-  const handleSubmit = async (data) => {
-    await updateQuality(data)
+  const handleSubmit = (data) => {
+    updateQuality(data).then(data => {if (data) history.push('/')})
   }
 
-    return (
-        <>
-          <h1>Edit Quality Page</h1>
-          <QualityForm data={quality} onSubmit={handleSubmit}/>
-        </>
-    );
+  return (
+      <>
+        <h1>Edit Quality Page</h1>
+        <QualityForm data={quality} onSubmit={handleSubmit}/>
+      </>
+  );
 };
 
 export default EditQualityPage;
